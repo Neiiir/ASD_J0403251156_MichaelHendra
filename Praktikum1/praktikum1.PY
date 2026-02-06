@@ -34,6 +34,10 @@ print("Contoh record ke 1:", data_list[0])
 print("Contoh record ke 2:", data_list[1])
 print("Jumlah record", len(data_list))
 
+#==========================================================================
+#Praktikum 1: Konsep file ADT dan file handling
+#Latihan Dasar 4: Membaca data dan menyimpannya ke Struktur Data Dictionary
+#==========================================================================
 data_dict = {}
 
 with open("data_mahasiswa.txt", "r", encoding="utf-8") as file:
