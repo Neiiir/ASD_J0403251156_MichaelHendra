@@ -3,15 +3,15 @@
 #Latihan Dasar 1: Membuat Fungsi Load Data
 #============================================================
 
-nama_file = "data_mahasiswa.txt"
+nama_file = "stok_barang.txt"
 
 def baca_data(nama_file):
     data_dict = {} #inisialisasi data dictionary
     with open(nama_file, "r", encoding="utf-8") as file:
         for baris in file:
             baris = baris.strip() #ambil data per baris dan hilangkan new line
-            nim, nama, nilai = baris.split(",") #ambil data per item data
-            data_dict[nim] = {"nama": nama, "nim": nim, "nilai":int(nilai)} #masukkan dalam 
+            kode, nama, jumlah = baris.split(",") #ambil data per item data
+            data_dict[kode] = {"kode": kode, "nama": nama, "jumlah":int(jumlah)} #masukkan dalam 
     return data_dict
 
 # buka_data = baca_data(nama_file)
@@ -23,14 +23,14 @@ def baca_data(nama_file):
 #============================================================
 def tampilkan_data(data_dict):
     #Membuat header tabel
-    print("\n========= Daftar Mahasiswa ========")
-    print(f"{'NIM':<10} | {"Nama":<12} | {"Nilai":>5}")
+    print("\n========= Daftar Barang =========")
+    print(f"{"Kode":<10} | {"Nama":<12} | {"Jumlah":>5}")
     print("-"*35) #Membuat garis
 
-    for nim in sorted(data_dict.keys()):
-        nama = data_dict[nim]["nama"]
-        nilai = data_dict[nim]["nilai"]
-        print(f"{nim:<10} | {nama:<12} | {int(nilai): >5}")
+    for kode in sorted(data_dict.keys()):
+        nama = data_dict[kode]["nama"]
+        jumlah = data_dict[kode]["jumlah"]
+        print(f"{kode:<10} | {nama:<12} | {int(jumlah): >5}")
 
 # tampilkan_data(buka_data) #Memanggil fungsi utk menampilkan data
 
@@ -41,21 +41,21 @@ def tampilkan_data(data_dict):
 
 #Membuat fungsi pencarian data
 def cari_data(data_dict):
-    #Pencarian data berdasarkan nim sebagai key dictionary
-    #Membuat input nim mahasiswa yang akan dicari
-    nim_cari = input("Masukkan NIM mahasiswa yang ingin dicari: ").strip()
+    #Pencarian data berdasarkan kode barang sebagai key dictionary
+    #Membuat input kode barang yang akan dicari
+    kode_cari = input("Masukkan Kode Barang yang ingin dicari: ").strip().upper()
 
-    if nim_cari in data_dict:
-        nama = data_dict[nim_cari]["nama"]
-        nilai = data_dict[nim_cari]["nilai"]
+    if kode_cari in data_dict:
+        nama = data_dict[kode_cari]["nama"]
+        jumlah = data_dict[kode_cari]["jumlah"]
 
-        print("====== Data Mahasiswa Ditemukan ======")
-        print(f"NIM: {nim_cari}")
+        print("====== Data Barang Ditemukan ======")
+        print(f"NIM: {kode_cari}")
         print(f"Nama: {nama}")
-        print(f"Nilai: {nilai}")
+        print(f"Jumlah: {jumlah}")
     
     else:
-        print("Data tidak ditemukan. Pastikan NIM yang dimasukkan benar!")
+        print("Data tidak ditemukan. Pastikan Kode yang dimasukkan benar!")
 
 # cari_data(buka_data)
 
@@ -67,25 +67,24 @@ def cari_data(data_dict):
 #Membuat fungsi update data
 def ubah_data(data_dict):
     #Awali dulu dengan mencari nim/data mahasiswa yang ingin diupdate
-    nim = input("Masukkan NIM mahasiswa yang ingin diubah datanya: ").strip()
+    kode = input("Masukkan Kode barang yang ingin diubah datanya: ").strip().upper()
 
-    if nim not in data_dict:
-        print("NIM tidak ditemukan. Update dibatalkan")
+    if kode not in data_dict:
+        print("Kode barang tidak ditemukan. Update dibatalkan")
         return
     
     try:
-        nilai_baru = int(input("Masukkan nilai yang baru 0-100: "))
+        jumlah_baru = int(input("Masukkan Jumlah barang yang baru > 0: "))
     except ValueError:
-        print("Nilai harus berupa angka. Update dibatalkan")
+        print("Jumlah barang harus berupa angka. Update dibatalkan")
     
-    if nilai_baru < 0 or nilai_baru > 100:
-        print("Nilai harus antara 0 sampai 100. Update dibatalkan")
+    if jumlah_baru < 0:
+        print("Jumlah barang harus lebih atau sama dengan 0. Update dibatalkan")
 
+    jumlah_lama =  data_dict[kode]["jumlah"]
+    data_dict[kode]["jumlah"] = jumlah_baru
 
-    nilai_lama =  data_dict[nim]["nilai"]
-    data_dict[nim]["nilai"] = nilai_baru
-
-    print(f"Update berhasil. Nilai {nim} berubah dari {nilai_lama} menjadi {nilai_baru}")
+    print(f"Update berhasil. Nilai {kode} berubah dari {jumlah_lama} menjadi {jumlah_baru}")
 
 # ubah_data(buka_data)
 
@@ -97,14 +96,38 @@ def ubah_data(data_dict):
 #Membuat fungsi menyimpan data ke file
 def simpan_data(nama_file, data_dict):
     with open(nama_file, "w", encoding="utf-8") as file:
-        for nim in sorted(data_dict.keys()):
-            nama = data_dict[nim]["nama"]
-            nilai = data_dict[nim]["nilai"]
-            file.write(f"{nim},{nama},{nilai}\n")
+        for kode in sorted(data_dict.keys()):
+            nama = data_dict[kode]["nama"]
+            jumlah = data_dict[kode]["jumlah"]
+            file.write(f"{kode},{nama},{jumlah}\n")
 
 #Memanggil fungsi simpan data
 # simpan_data(nama_file, buka_data)
 # print("\n Data berhasil Disimpan ke file: ", nama_file)
+
+def tambah_data(data_dict):
+    kode= input("Masukkan Kode barang yang ingin ditambahkan: ").strip().upper()
+    if kode in data_dict:
+        print("Kode barang sudah ada. Penambahan data dibatalkan")
+        return
+    
+    try:
+        nama_baru = input("Masukkan nama barang yang baru: ")
+        jumlah_baru = int(input("Masukkan Jumlah barang yang baru > 0: "))
+    except ValueError:
+        print("Jumlah barang harus berupa angka. Penambahan data dibatalkan")
+    
+    if jumlah_baru < 0:
+        print("Jumlah barang harus lebih atau sama dengan 0. Update dibatalkan")
+    
+    data_dict[kode] = {
+        "kode": kode,
+        "nama": nama_baru,
+        "jumlah": jumlah_baru
+    }
+
+    print(f"Penambahan data berhasil.")
+
 
 #============================================================
 #Praktikum 2: Konsep file ADT dan file handling (Studi Kasus)
@@ -116,11 +139,12 @@ def main():
     buka_data = baca_data(nama_file)
 
     while True:
-        print("\n==== MENU ====")
-        print("1. Tampilkan data mahasiswa")
-        print("2. Cari data mahasiswa berdasarkan NIM")
-        print("3. Ubah nilai mahasiswa")
+        print("\n================ MENU =================")
+        print("1. Tampilkan data stok barang")
+        print("2. Cari data stok barang berdasarkan Kode")
+        print("3. Ubah jumlah stok barang")
         print("4. Simpan data ke file")
+        print("5. Tambah data stok barang")
         print("0. Keluar")
 
         pilihan = input("Pilih menu: ").strip()
@@ -136,6 +160,9 @@ def main():
         elif pilihan == "4":
             simpan_data(nama_file, buka_data)
             print("Data berhasil disimpan")
+        
+        elif pilihan == "5":
+            tambah_data(buka_data)
 
         elif pilihan == "0":
             print("Program selesai")
@@ -144,4 +171,5 @@ def main():
         else:
             print("Pilihan tidak valid. Silahkan coba lagi!")
     
-main()
+if __name__== "__main__":
+    main()
