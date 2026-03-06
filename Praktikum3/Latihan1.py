@@ -22,7 +22,6 @@ class LinkedList:
     def delete_node(self, key):
         temp = self.head
 
-        # Jika node pertama yang dihapus
         if temp and temp.data == key:
             self.head = temp.next
             temp = None
@@ -50,11 +49,6 @@ class LinkedList:
             print(temp.data, end=" -> ")
             temp = temp.next
         print("null")
-
-
-# =====================
-# INPUT USER
-# =====================
 
 ll = LinkedList()
 

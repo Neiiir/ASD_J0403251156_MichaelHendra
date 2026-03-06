@@ -40,11 +40,6 @@ class CircularSinglyLinkedList:
 
         print(f"Elemen {key} tidak ditemukan dalam Circular Linked List.")
 
-
-# ======================
-# INPUT USER
-# ======================
-
 cll = CircularSinglyLinkedList()
 
 data = input("Masukkan elemen Circular Linked List (pisahkan dengan koma): ")
@@ -55,8 +50,6 @@ if data.strip() != "":
 else:
     print("Circular Linked List kosong.")
 
-# Input pencarian
 key = int(input("Masukkan elemen yang ingin dicari: "))
 
-# Proses pencarian
 cll.search(key)

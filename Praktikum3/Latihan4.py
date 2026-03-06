@@ -41,11 +41,6 @@ class LinkedList:
 
         temp.next = other.head
 
-
-# =========================
-# INPUT DARI USER
-# =========================
-
 ll1 = LinkedList()
 ll2 = LinkedList()
 
@@ -62,11 +57,6 @@ data2 = input("Masukkan elemen Linked List 2 (pisahkan dengan koma): ")
 if data2.strip() != "":
     for x in data2.split(","):
         ll2.insert_at_end(int(x))
-
-
-# =========================
-# OUTPUT
-# =========================
 
 print("\nLinked List 1:")
 ll1.display()
