@@ -19,3 +19,4 @@ for i in range(len(data)):
 #1. Jika Pak Budi akan meloloskan lima kandidat dengan nilai tertinggi, tuliskanlah skor lima kandidat tersebut dari yang paling tinggi hingga terendah.
 #= [98, 89, 76, 68, 57]
 #2. Kandidat berapa saja yang lolos
+#= [98, 89, 76, 68, 57] ada 5 orang yaitu kandidat ke 7,4,2,9,6
