@@ -1,0 +1,5 @@
+BK001,Belajar Python dari Nol,85000
+BK002,Struktur Data dengan C++,120000
+BK003,Algoritma dan Pemrograman,95000
+BK004,Dasar-Dasar Basis Data,75000
+BK005,Pemrograman Web Modern,110000
