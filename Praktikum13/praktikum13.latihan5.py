@@ -5,26 +5,35 @@
 # Praktikum 13 - Graph III: Spanning Tree
 # ==========================================================
 
-# Kasus 1 : Jaringan Jalan Antar Kota
-# Menggunakan Algoritma Kruskal
+
+# ==========================================================
+# Implementasi Algoritma Kruskal
+# Kasus: Jaringan Komputer
+# ==========================================================
+
+# Daftar edge:
+# (bobot, node1, node2)
 
 edges = [
-    (5, 'Bogor', 'Jakarta'),
-    (2, 'Bogor', 'Depok'),
-    (3, 'Depok', 'Jakarta'),
-    (6, 'Jakarta', 'Bandung'),
-    (4, 'Depok', 'Bandung')
+    (3, 'RouterA', 'RouterB'),
+    (2, 'RouterA', 'RouterC'),
+    (5, 'RouterB', 'RouterD'),
+    (1, 'RouterC', 'RouterD'),
+    (4, 'RouterB', 'RouterC')
 ]
 
-# Mengurutkan edge
+# Mengurutkan edge berdasarkan bobot terkecil
 edges.sort()
 
 mst = []
 total_weight = 0
+
+# Menyimpan node yang sudah terhubung
 connected = set()
 
 for weight, u, v in edges:
 
+    # Jika edge tidak membentuk cycle sederhana
     if u not in connected or v not in connected:
 
         mst.append((u, v, weight))
@@ -33,28 +42,32 @@ for weight, u, v in edges:
         connected.add(u)
         connected.add(v)
 
+# ==========================================================
+# OUTPUT
+# ==========================================================
+
 print("Minimum Spanning Tree:")
 
 for edge in mst:
     print(edge)
 
-print("Total bobot minimum =", total_weight)
+print("\nTotal bobot minimum =", total_weight)
 
 # ==========================================================
 # Jawaban Analisis:
 #
-# 1. Kasus yang dipilih adalah jaringan jalan antar kota.
+# 1. Kasus yang dipilih adalah jaringan komputer.
 #
 # 2. Algoritma yang digunakan adalah Kruskal.
 #
-# 3. Edge yang dipilih:
-#    - Bogor - Depok = 2
-#    - Depok - Jakarta = 3
-#    - Depok - Bandung = 4
+# 3. Edge yang dipilih dalam MST:
+#    - RouterC - RouterD = 1
+#    - RouterA - RouterC = 2
+#    - RouterA - RouterB = 3
 #
-# 4. Total bobot MST adalah 9.
+# 4. Total bobot MST adalah 6.
 #
 # 5. Edge tertentu tidak dipilih karena
 #    memiliki bobot lebih besar dan dapat
-#    membuat total biaya menjadi tidak minimum.
+#    menyebabkan cycle sehingga tidak efisien.
 # ==========================================================
